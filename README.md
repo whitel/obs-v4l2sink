@@ -30,10 +30,10 @@ issue #17][vcam#17].
 
 ## Build
 
-- Install QT
+- Install QT, obs-devel
 
 ```
-sudo apt install qtbase5-dev
+sudo dnf install qt5-devel obs-devel
 ```
 
 - Get obs-studio source code
@@ -48,7 +48,7 @@ git clone --recursive https://github.com/obsproject/obs-studio.git
 git clone https://github.com/CatxFish/obs-v4l2sink.git
 cd obs-v4l2sink
 mkdir build && cd build
-cmake -DLIBOBS_INCLUDE_DIR="../../obs-studio/libobs" -DCMAKE_INSTALL_PREFIX=/usr ..
+cmake -DLIBOBS_INCLUDE_DIR="/usr/lib64" -DCMAKE_INSTALL_PREFIX=/usr ..
 make -j4
 sudo make install
 ```
