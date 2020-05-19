@@ -18,8 +18,8 @@ issue #17][vcam#17].
 
 ## Usage with v4l2loopback
 
-- Make sure to [load the v4l2loopback module][run-v4l2loopback] and check the Device Path.
-  - If using Chrome or Chromium you must use the option `exclusive_caps=1`.
+- Make sure to [load the v4l2loopback module][run-v4l2loopback] and check the Device Path with `v4l2-ctl --list-devices`.
+  - If using Chrome or Chromium you must use the option `exclusive_caps=1` by `sudo modprobe v4l2loopback exclusive_caps=1`.
 - Open OBS and select the menu entry `Tools > V4L2 Video Output`.
 - Fill in the Device Path and select the appropriate video format.
 - Click the `Start` button.
@@ -28,18 +28,21 @@ issue #17][vcam#17].
 
 [run-v4l2loopback]: https://github.com/umlaeute/v4l2loopback#run
 
+## get kmod
+
+- Install enble copr and install
+
+```
+sudo dnf copr enable sentry/v4l2loopback
+sudo dnf install v4l2loopback
+```
+
 ## Build
 
-- Install QT
+- Install QT, obs-devel
 
 ```
-sudo apt install qtbase5-dev
-```
-
-- Get obs-studio source code
-
-```
-git clone --recursive https://github.com/obsproject/obs-studio.git
+sudo dnf install qt5-devel obs-devel libyuv #libyuv may not be necessary
 ```
 
 - Build plugins
@@ -48,7 +51,7 @@ git clone --recursive https://github.com/obsproject/obs-studio.git
 git clone https://github.com/CatxFish/obs-v4l2sink.git
 cd obs-v4l2sink
 mkdir build && cd build
-cmake -DLIBOBS_INCLUDE_DIR="../../obs-studio/libobs" -DCMAKE_INSTALL_PREFIX=/usr ..
+cmake -DLIBOBS_INCLUDE_DIR="/usr/lib64" -DCMAKE_INSTALL_PREFIX=/usr/lib64 ..
 make -j4
 sudo make install
 ```
